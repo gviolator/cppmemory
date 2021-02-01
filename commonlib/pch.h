@@ -4,4 +4,6 @@
 #define NOMINMAX
 #include <Windows.h>
 
+#include <chrono>
+#include <functional>
 #include <type_traits>

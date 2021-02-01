@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cppmem/membase.h>
-#include <cppmem/diag.h>
 
 #include <memoryapi.h>
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "cppmem/diag.h"
+#include <cppmem/diag.h>
 
 constexpr inline bool isPOT(size_t value)
 {
