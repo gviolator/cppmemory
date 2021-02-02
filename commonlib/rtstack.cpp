@@ -119,20 +119,28 @@ RtStackGuard::~RtStackGuard()
 }
 
 
-Allocator& RtStackGuard::allocator()
+Allocator::Ptr& RtStackGuard::allocator()
 {
 	auto current = currentStack();
-	Allocator* const allocator__ = (current && current->m_allocator) ? current->m_allocator.get() : &crtAllocator();
-	CHECK(allocator__)
-	return *allocator__ ;
+	Allocator::Ptr& allocPtr = (current && current->m_allocator) ? current->m_allocator : crtAllocator();
+	CHECK(allocPtr)
+	return allocPtr;
+}
+
+
+std::pmr::memory_resource* RtStackGuard::stdMemoryResource()
+{
+	static MemoryResource<RtStackAllocatorProvider> memResource;
+
+	return &memResource;
 }
 
 //-----------------------------------------------------------------------------
 
-Allocator& rtStack()
-{
-	return RtStackGuard::allocator();
-}
+//Allocator& rtStack()
+//{
+//	return RtStackGuard::allocator();
+//}
 
 //std::pmr::memory_resource* rtStackMemoryResource()
 //{

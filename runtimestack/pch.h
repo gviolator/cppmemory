@@ -7,3 +7,7 @@
 #include <type_traits>
 
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <list>
+#include <vector>

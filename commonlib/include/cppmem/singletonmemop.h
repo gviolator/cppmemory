@@ -7,10 +7,13 @@
 template<typename Class_>
 struct SingletonMemOp
 {
-	static void* operator_new(size_t) noexcept
+
+
+	static void* operator_new(size_t size) noexcept
 	{
 		decltype(auto) state = getSingletonState();
 		CHECK(!state.allocated)
+		CHECK(sizeof(Class_) >= size)
 
 		state.allocated = true;
 		return &state.storage;
@@ -20,6 +23,7 @@ struct SingletonMemOp
 	{
 		decltype(auto) state = getSingletonState();
 		CHECK(state.allocated)
+		CHECK(ptr == &state.storage)
 
 		state.allocated = false;
 	}
@@ -39,6 +43,34 @@ private:
 		return (state);
 	};
 };
+
+
+#pragma region stdlib helper
+template<typename T>
+struct SingletonStdAllocator
+{
+	using value_type = T;
+
+	SingletonStdAllocator() = default;
+
+	template<typename U>
+	SingletonStdAllocator(const SingletonStdAllocator<U>& ) noexcept
+	{};
+
+	T* allocate(size_t n, const void* hint = 0)
+	{
+		void* const ptr = SingletonMemOp<T>::operator_new(sizeof(T) * n);
+
+		return reinterpret_cast<T*>(ptr);
+	}
+
+	void deallocate(T* ptr, size_t n)
+	{
+		SingletonMemOp<T>::operator_delete(ptr, sizeof(T) * n);
+	}
+};
+#pragma endregion
+
 
 #define SINGLETON_MEMOP(ClassName)\
 public:\

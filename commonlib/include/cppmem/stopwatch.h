@@ -4,6 +4,12 @@
 class StopWatch
 {
 public:
+
+	static void printTimePassed(const StopWatch&);
+
+	static void printTimeDiff(const std::chrono::milliseconds&, const std::chrono::milliseconds&);
+
+
 	StopWatch();
 
 	std::chrono::milliseconds timePassed() const;

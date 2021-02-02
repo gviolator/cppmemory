@@ -1,17 +1,38 @@
 #include "pch.h"
 #include <cppmem/stopwatch.h>
 
+#include <chrono>
 
-StopWatch::StopWatch(): m_timePoint(std::chrono::system_clock::now())
+
+	using namespace std::chrono;
+
+
+StopWatch::StopWatch(): m_timePoint(system_clock::now())
 {}
 
-std::chrono::milliseconds StopWatch::timePassed() const
+milliseconds StopWatch::timePassed() const
 {
-	using namespace std::chrono;
-	return duration_cast<milliseconds>(std::chrono::system_clock::now() - m_timePoint);
+	return duration_cast<milliseconds>(system_clock::now() - m_timePoint);
 }
 
 size_t StopWatch::ms() const
 {
 	return this->timePassed().count();
+}
+
+
+void StopWatch::printTimePassed(const StopWatch& sw)
+{
+	std::cout << sw.timePassed().count() << " ms\n";
+}
+
+void StopWatch::printTimeDiff(const std::chrono::milliseconds& base, const std::chrono::milliseconds& comparer)
+{
+	const size_t c1 = base.count();
+	const size_t c2 = comparer.count();
+
+	const auto p = static_cast<double>(c1) / 100;
+	const auto diff = (c2 - c1) / p;
+
+	std::cout << "(" << c1 << ")ms (" << c2 << ")ms, diff:" << diff << "%\n";
 }

@@ -24,9 +24,11 @@ public:
 	}
 };
 
-Allocator& crtAllocator()
+Allocator::Ptr& crtAllocator()
 {
 	static Allocator::Ptr allocator(new CrtAllocator());
-		//std::make_shared<CrtAllocator>();
-	return *allocator.get();
+	// static Allocator::Ptr allocator = std::make_shared<CrtAllocator>();
+
+		//
+	return allocator;
 }
