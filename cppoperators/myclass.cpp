@@ -3,7 +3,7 @@
 
 
 
-void* MyClass::operator new (size_t size)
+void* MyClass::operator new (size_t size, std::align_val_t)
 {
 	std::cout << "Request to allocate: (" << size << ") bytes\n";
 	return _aligned_malloc(size, alignof(MyClass));

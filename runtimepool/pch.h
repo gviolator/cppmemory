@@ -3,6 +3,7 @@
 #define NOMINMAX
 #include <Windows.h>
 
+#include <array>
 #include <functional>
 #include <type_traits>
 

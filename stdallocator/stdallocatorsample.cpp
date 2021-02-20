@@ -34,7 +34,7 @@ int main()
 	using String2 = std::basic_string<char, std::char_traits<char>, Allocator2<char>>;
 
 	String1 str1 = "string1";
-	String2 str2(str1);
+	String2 str2 = str1;
 
 	//if (str1 == std::string_view{str2})
 	//{

@@ -154,7 +154,7 @@ public:
 		}
 
 		constexpr size_t MinPoolSize = AllocationGranuarity;
-		constexpr size_t OptimalBlocksPerPool = 256;
+		constexpr size_t OptimalBlocksPerPool = 512;
 	
 		size_t maxBlocksPerPool = 0;
 
@@ -218,7 +218,7 @@ Allocator::Ptr createPoolAllocator(PoolAllocatorConfig config)
 		return std::make_shared<ConcurrentAllocator>(targetGranularity, config.blockMaxSize);
 	}
 
-	return std::make_shared<ConcurrentAllocator>(targetGranularity, config.blockMaxSize);
+	return std::make_shared<SingleThreadAllocator>(targetGranularity, config.blockMaxSize);
 }
 
 

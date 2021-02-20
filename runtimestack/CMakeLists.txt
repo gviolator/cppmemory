@@ -10,6 +10,9 @@ add_executable(${TargetName} ${Sources})
 target_link_libraries(${TargetName}
 	PRIVATE
 		commonlib
+		Rpcrt4.lib
+		Ws2_32.lib
+		Iphlpapi.lib
 )
 
 target_precompile_headers(${TargetName} PRIVATE pch.h)

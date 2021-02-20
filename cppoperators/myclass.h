@@ -4,7 +4,7 @@
 class MyClass : public Interface1
 {
 public:
-	static void* operator new (size_t);
+	static void* operator new (size_t, std::align_val_t al);
 
 	static void operator delete (void*, size_t);
 

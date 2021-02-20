@@ -7,8 +7,6 @@
 template<typename Class_>
 struct SingletonMemOp
 {
-
-
 	static void* operator_new(size_t size) noexcept
 	{
 		decltype(auto) state = getSingletonState();
